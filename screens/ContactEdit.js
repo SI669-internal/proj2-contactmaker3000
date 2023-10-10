@@ -23,8 +23,9 @@ function ContactEditScreen({navigation, route}) {
   const [companyInput, setCompanyInput] = useState(company);
 
   const [phoneList, setPhoneList] = useState(phone);
+  const [emailList, setEmailList] = useState(email);
   
-  console.log(phoneList);
+  console.log('just got phone list:', phoneList);
 
   return (
 
@@ -74,10 +75,9 @@ function ContactEditScreen({navigation, route}) {
 
       {/* **** BODY **** */}
 
-
       <ScrollView style={styles.body}>
 
-        {/* basic info section */}
+        {/* *** BASIC INFO *** */}
         <View style={styles.entryWithLabel}>
           <View style={styles.entryWithLabelLeft}>
             <Icon 
@@ -135,6 +135,7 @@ function ContactEditScreen({navigation, route}) {
 
         <View style={styles.hr}/>
         
+        {/* *** PHONE NUMBERS *** */}
         <View style={styles.entryWithLabel}>
           <View style={styles.entryWithLabelLeft}>
             <Icon 
@@ -146,24 +147,33 @@ function ContactEditScreen({navigation, route}) {
           </View>
         </View>
 
-        {/* phone section */}
-        {phone.map((pnum, idx) => {
+        {phoneList.map((pnum, idx) => {
+          console.log('mapping', pnum, idx);
           return (
             <View style={[styles.entryWithLabel]} key={pnum.label}>
               <View style={styles.entryWithLabelLeft}>
-                <Icon 
-                  name='remove-circle'
-                  type='material'
-                  size={20}
-                  color='red'
-                />
+                <TouchableOpacity
+                  onPress={()=>{
+                    console.log('trying to delete');
+                    const newPhoneList = phoneList.filter(p=>p.label!==pnum.label);
+                    console.log('after filter:', newPhoneList);
+                    setPhoneList(newPhoneList);
+                  }}
+                >
+                  <Icon 
+                    name='remove-circle'
+                    type='material'
+                    size={20}
+                    color='red'
+                  />
+                </TouchableOpacity>
                 <Text>&nbsp; {pnum.label} &gt;</Text>
               </View>
               <View style={styles.entryWithLabelRight}>
               <TextInput
                 style={styles.textInput}
                 placeholder='888-555-1212'
-                value={phoneList[idx].number}
+                value={pnum.number}
                 onChangeText={text=>{
                   setPhoneList(phoneList.map(
                     p=>pnum.label===p.label?{...p, number: text}:p
@@ -172,7 +182,7 @@ function ContactEditScreen({navigation, route}) {
               />
               </View>
             </View>
-          )
+          );
         })}
         <View style={[styles.entryWithLabel]}>
           <View style={styles.entryWithLabelLeft}>
@@ -184,22 +194,37 @@ function ContactEditScreen({navigation, route}) {
             />
           </View>
         </View>
-        {/* {email.map(em => {
+
+        {email.map((em, idx) => {
           return (
             <View style={[styles.entryWithLabel]} key={em.label}>
-              <View style={styles.entryWithLabelLeft}>
-                <Icon 
-                  name='email'
-                  type='material'
-                />
-                <Text style={styles.listItemText}>&nbsp; {em.label}</Text>
-              </View>
-              <View style={styles.entryWithLabelRight}>
-                <Text>{em.emailaddr}</Text>
-              </View>
+            <View style={styles.entryWithLabelLeft}>
+              <Icon 
+                name='remove-circle'
+                type='material'
+                size={20}
+                color='red'
+              />
+              <Text>&nbsp; {em.label} &gt;</Text>
             </View>
-          )
-        })} */}
+            <View style={styles.entryWithLabelRight}>
+            <TextInput
+              style={styles.textInput}
+              placeholder='person@email.com'
+              value={emailList[idx].emailaddr}
+              onChangeText={text=>{
+                setEmailList(emailList.map(
+                  e=>em.label===e.label?{...e, emailaddr: text}:e
+                ));
+              }}
+            />
+            </View>
+          </View>
+          );
+        })}
+
+
+
         {/* {address.map(addr => {
           return (
             <AddressCard address={addr}/>
