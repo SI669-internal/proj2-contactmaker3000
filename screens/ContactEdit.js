@@ -334,7 +334,7 @@ function ContactEditScreen({navigation, route}) {
               <TouchableOpacity
                   onPress={()=>{
                     const newAddressList = addressList.filter(a=>a.label!==addr.label);
-                    setEmailList(newAddressList);
+                    setAddressList(newAddressList);
                   }}
                 >
                   <Icon 
@@ -451,6 +451,8 @@ function ContactEditScreen({navigation, route}) {
 
         <View style={styles.hr}/>
 
+        {/* Groups */}
+
         <View style={styles.entryWithLabel}>
           <View style={styles.entryWithLabelLeft}>
             <Icon 
@@ -566,7 +568,7 @@ function ContactEditScreen({navigation, route}) {
                     return;
                   case 'address':
                     const newAddress = {...selectedItem, label: labels[selectedIndex]};
-                    setEmailList(addressList.map(
+                    setAddressList(addressList.map(
                       a=>a.id===selectedItem.id?newAddress:a
                     ));
                     setOverlayVisible(false);
