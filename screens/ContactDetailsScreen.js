@@ -62,7 +62,7 @@ function ContactDetailScreen({navigation, route}) {
                   name='phone'
                   type='material'
                 />
-                <Text style={styles.listItemText}>&nbsp; {pnum.label}</Text>
+                <Text style={styles.listItemText}>&nbsp; Phone</Text>
               </View>
               <View style={styles.entryWithLabelRight}>
                 <Text>{pnum.number}</Text>
@@ -78,7 +78,7 @@ function ContactDetailScreen({navigation, route}) {
                   name='email'
                   type='material'
                 />
-                <Text style={styles.listItemText}>&nbsp; {em.label}</Text>
+                <Text style={styles.listItemText}>&nbsp; Email</Text>
               </View>
               <View style={styles.entryWithLabelRight}>
                 <Text>{em.emailaddr}</Text>

@@ -43,11 +43,13 @@ export const loadOnInit = () => {
 
 export const addContact = (newContact) => {
   return async dispatch => {
+    console.log('adding new contact, before firebase', newContact);
     const docRef = await addDoc(collection(db, 'contacts'), newContact);
     const contactToAdd = {
       ...newContact, 
       id: docRef.id
     }
+    console.log('adding new contact, after firebase', contactToAdd);
 
     dispatch( {
         type: ADD_CONTACT,
@@ -61,7 +63,7 @@ export const addContact = (newContact) => {
 
 export const updateContact = (updatedContact) => {
   return async dispatch => {
-    await setDoc(doc(db, 'contacts', '' + updatedContact.id), updatedContact);
+    await setDoc(doc(db, 'contacts', updatedContact.id), updatedContact);
     dispatch( {
         type: UPDATE_CONTACT,
         payload: {

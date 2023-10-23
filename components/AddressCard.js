@@ -13,7 +13,7 @@ export function AddressCard(props) {
           type='font-awesome-5'
           size={20}
         />
-        <Text style={styles.listItemText}>&nbsp; {address.label}</Text>
+        <Text style={styles.listItemText}>&nbsp; Address</Text>
       </View>
       <View style={[styles.entryWithLabelRight, {flexDirection: 'column'}]}>
         <Text>{address.addr1}</Text>

@@ -19,7 +19,6 @@ const loadOnInit = (state, contacts, groups) => {
 const addContact = (state, newContact) => {
   let contact = {
     ...newContact,
-    id: Date.now()
   }
   return {
     ...state, 
