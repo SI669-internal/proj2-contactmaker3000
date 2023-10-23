@@ -10,7 +10,7 @@ function ContactDetailScreen({navigation, route}) {
 
   let {contactID} = route.params;
   let contact = useSelector(state=>{
-    return state.contacts.find(elem=>elem.id===contactID)
+    return state.contacts.find(elem=>elem.id===contactID);
   });
   let groups = useSelector(state=>state.groups);
 
@@ -56,7 +56,7 @@ function ContactDetailScreen({navigation, route}) {
         {/* phone section */}
         {phone.map(pnum => {
           return (
-            <View style={[styles.entryWithLabel]} key={pnum.label}>
+            <View style={[styles.entryWithLabel]} key={pnum.id}>
               <View style={styles.entryWithLabelLeft}>
                 <Icon 
                   name='phone'
@@ -72,7 +72,7 @@ function ContactDetailScreen({navigation, route}) {
         })}
         {email.map(em => {
           return (
-            <View style={[styles.entryWithLabel]} key={em.label}>
+            <View style={[styles.entryWithLabel]} key={em.id}>
               <View style={styles.entryWithLabelLeft}>
                 <Icon 
                   name='email'
@@ -88,7 +88,7 @@ function ContactDetailScreen({navigation, route}) {
         })}
         {address.map(addr => {
           return (
-            <AddressCard address={addr}/>
+            <AddressCard address={addr} key={addr.id}/>
           )
         })}
 
@@ -101,14 +101,22 @@ function ContactDetailScreen({navigation, route}) {
             <Text style={styles.listItemText}>&nbsp; Groups</Text>
           </View>
           <View style={styles.entryWithLabelRight}>
-            {contactGroups.map(grp=>{
-              //console.log(groups);
-              const groupObj = groups.find(g=>grp===g.id);
-              const groupLabel = groupObj.label;
-              return (
-                <Text key={groupLabel}>{groupLabel}</Text>
-              );
-            })}
+            <View style={styles.contactGroupContainer}>
+              {contactGroups.map(grp=>{
+                console.log(groups);
+                console.log(contactGroups);
+                console.log(grp);
+                const groupObj = groups.find(g=>grp.id===g.id);
+                const groupLabel = groupObj.label;
+                return (
+                  <Text 
+                    style={styles.aLittlePadding} 
+                    key={groupObj.id}>
+                    {groupLabel}
+                  </Text>
+                );
+              })}
+            </View>
           </View>
       </View>
       </ScrollView>

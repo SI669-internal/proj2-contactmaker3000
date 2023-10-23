@@ -15,7 +15,7 @@ export function AddressCard(props) {
         />
         <Text style={styles.listItemText}>&nbsp; {address.label}</Text>
       </View>
-      <View style={styles.entryWithLabelRight}>
+      <View style={[styles.entryWithLabelRight, {flexDirection: 'column'}]}>
         <Text>{address.addr1}</Text>
         {address.addr2 === '' ? <View/> : <Text>{address.addr2}</Text>}
         <Text>{address.city}, {address.state} {address.postalcode} {address.country}</Text>
